@@ -1,27 +1,30 @@
-##Make vector 
-makeVector <- function(x = numeric()) {
-  m <- NULL
+
+## Set the input x as a matrix
+## set the solved value "s" as a null
+## Change every reference to "mean" to "solve"
+makeCacheMatrix <- function(x = matrix(sample(1:100,9),3,3)) {
+  s <- NULL
   set <- function(y) {
     x <<- y
-    m <<- NULL
+    s <<- NULL
   }
   get <- function() x
-  setmean <- function(mean) m <<- mean
-  getmean <- function() m
+  setsolve <- function(solve) s <<- solve
+  getsolve <- function() s
   list(set = set, get = get,
-       setmean = setmean,
-       getmean = getmean)
+       setsolve = setsolve,
+       getsolve = getsolve)
 }
 
-##Find mean 
-cachemean <- function(x, ...) {
-  m <- x$getmean()
-  if(!is.null(m)) {
-    message("getting cached data")
-    return(m)
+## Change "mean" to "solve" and "m" to "s"
+cacheSolve <- function(x, ...) {
+  s <- x$getsolve()
+  if(!is.null(s)) {
+    message("getting inversed matrix")
+    return(s)
   }
   data <- x$get()
-  m <- mean(data, ...)
-  x$setmean(m)
-  m
+  s <- solve(data, ...)
+  x$setsolve(s)
+  s
 }
